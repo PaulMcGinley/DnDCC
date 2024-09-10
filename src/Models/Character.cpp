@@ -31,12 +31,12 @@ std::vector<int> Character::Roll(int count, int sides) {
 // Generate the abilities for the character
 void Character::GenerateAbilities() {
 
-    this->Strength = this->RollForAbility();
-    this->Dexterity = this->RollForAbility();
-    this->Constitution = this->RollForAbility();
-    this->Intelligence = this->RollForAbility();
-    this->Wisdom = this->RollForAbility();
-    this->Charisma = this->RollForAbility();
+    this->strength[0] = this->RollForAbility();
+    this->dexterity[0] = this->RollForAbility();
+    this->constitution[0] = this->RollForAbility();
+    this->intelligence[0] = this->RollForAbility();
+    this->wisdom[0] = this->RollForAbility();
+    this->charisma[0] = this->RollForAbility();
 }
 
 // Roll 4d6 and drop the lowest value

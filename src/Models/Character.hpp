@@ -23,6 +23,7 @@ public:
 
 private:
     int RollForAbility();
+    int CalculateBonus();
 };
 
 #endif //CHARACTER_HPP
