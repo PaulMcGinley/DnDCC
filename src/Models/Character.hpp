@@ -9,21 +9,19 @@
 #include <vector>
 
 #include "../Interfaces/IAbilities.hpp"
+#include "../Interfaces/ILevel.hpp"
 
-class Character : public IAbilities {
+class Character : public IAbilities, public ILevel {
 public:
     Character();
     std::string name = "New Player";
-    int level = 1;
-    int experience = 0;
-    int health = 10;
-    int maxHealth = 10;
+
     std::vector<int> Roll(int count = 1, int sides = 6);
-    void GenerateAbilities();
+    void GenerateBaseAbilities();
 
 private:
     int RollForAbility();
-    int CalculateBonus();
+    int CalculateBonus(int);
 };
 
 #endif //CHARACTER_HPP

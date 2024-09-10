@@ -9,7 +9,7 @@
 
 // Constructor
 Character::Character() {
-    this->GenerateAbilities();
+    this->GenerateBaseAbilities();
 }
 
 // Roll a number of dice with a given number of sides
@@ -29,20 +29,31 @@ std::vector<int> Character::Roll(int count, int sides) {
 }
 
 // Generate the abilities for the character
-void Character::GenerateAbilities() {
+void Character::GenerateBaseAbilities() {
 
     this->strength[0] = this->RollForAbility();
+    this->strength[1] = this->CalculateBonus(this->strength[0]);
+
     this->dexterity[0] = this->RollForAbility();
+    this->dexterity[1] = this->CalculateBonus(this->dexterity[0]);
+
     this->constitution[0] = this->RollForAbility();
+    this->constitution[1] = this->CalculateBonus(this->constitution[0]);
+
     this->intelligence[0] = this->RollForAbility();
+    this->intelligence[1] = this->CalculateBonus(this->intelligence[0]);
+
     this->wisdom[0] = this->RollForAbility();
+    this->wisdom[1] = this->CalculateBonus(this->wisdom[0]);
+
     this->charisma[0] = this->RollForAbility();
+    this->charisma[1] = this->CalculateBonus(this->charisma[0]);
 }
 
 // Roll 4d6 and drop the lowest value
 int Character::RollForAbility() {
 
-    std:std::vector<int> results;               // store the results of the roll
+    std::vector<int> results;                   // store the results of the roll
     int sum = 0;                                // store the sum of the results
 
     results = this->Roll(4, 6);       // roll 4d6
@@ -58,3 +69,6 @@ int Character::RollForAbility() {
     return sum - lowest;                        // return the sum of all numbers minus the lowest value
 }
 
+int Character::CalculateBonus(int value) {
+    return std::floor ((value - 10) / 2);
+}

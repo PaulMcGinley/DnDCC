@@ -7,4 +7,5 @@ add_executable(DnDCC main.cpp
         Interfaces/IAbilities.hpp
         Models/Character.cpp
         Models/Character.hpp
+        Interfaces/ILevel.hpp
 )
