@@ -13,13 +13,16 @@
 class Character : public IAbilities {
 public:
     Character();
-    std::string name;
-    int level;
-    int experience;
-    int health;
-    int maxHealth;
+    std::string name = "New Player";
+    int level = 1;
+    int experience = 0;
+    int health = 10;
+    int maxHealth = 10;
     std::vector<int> Roll(int count = 1, int sides = 6);
     void GenerateAbilities();
+
+private:
+    int RollForAbility();
 };
 
 #endif //CHARACTER_HPP
