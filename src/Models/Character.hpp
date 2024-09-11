@@ -10,11 +10,14 @@
 
 #include "../Interfaces/IAbilities.hpp"
 #include "../Interfaces/ILevel.hpp"
+#include "../Enums/CharacterClass.h"
 
 class Character : public IAbilities, public ILevel {
 public:
     Character();
     std::string name = "New Player";
+    CharacterClass characterClass = UNDEFINED;
+    std::string Class() { return CharacterClassToString(characterClass); }
 
     std::vector<int> Roll(int count = 1, int sides = 6);
     void GenerateBaseAbilities();
@@ -22,6 +25,9 @@ public:
 private:
     int RollForAbility();
     int CalculateBonus(int);
+    CharacterClass DetermineClass();
+    void SelectClass(CharacterClass);
+    std::string CharacterClassToString(CharacterClass characterClass);
 };
 
 #endif //CHARACTER_HPP

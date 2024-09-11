@@ -8,4 +8,5 @@ add_executable(DnDCC main.cpp
         Models/Character.cpp
         Models/Character.hpp
         Interfaces/ILevel.hpp
+        Enums/CharacterClass.h
 )
