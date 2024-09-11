@@ -53,7 +53,7 @@ void Character::GenerateBaseAbilities() {
     CharacterClass possible_classes = DetermineClass();
 
     SelectClass(possible_classes);
-
+    AssignClassAbilities();
 }
 
 // Roll 4d6 and drop the lowest value
@@ -83,10 +83,10 @@ int Character::CalculateBonus(int value) {
 CharacterClass Character::DetermineClass() {
     CharacterClass output = UNDEFINED;
 
-    if (this->Strength() > 13)      output = static_cast<CharacterClass>(output | Fighter);
-    if (this->Dexterity() > 13)     output = static_cast<CharacterClass>(output | Rogue);
-    if (this->Intelligence() > 13)  output = static_cast<CharacterClass>(output | Wizard);
-    if (this->Charisma() > 13)      output = static_cast<CharacterClass>(output | Bard);
+    if (this->Strength()        > 13)   output = static_cast<CharacterClass>(output | Fighter);
+    if (this->Dexterity()       > 13)   output = static_cast<CharacterClass>(output | Rogue);
+    if (this->Intelligence()    > 13)   output = static_cast<CharacterClass>(output | Wizard);
+    if (this->Charisma()        > 13)   output = static_cast<CharacterClass>(output | Bard);
 
     return output;
 }
@@ -136,6 +136,77 @@ void Character::SelectClass(CharacterClass characterClass) {
 
     this->characterClass = selectedClass;
 }
+
+void Character::AssignClassAbilities() {
+    switch (this->characterClass) {
+
+        case Wizard: {
+            this->health[2] = 6 + this->Constitution();
+            break;
+        }
+
+        case Bard: {
+            this->health[2] = 8 + this->Constitution();
+            break;
+        }
+
+        case Rogue: {
+            this->health[2] = 8 + this->Constitution();
+            break;
+        }
+
+        case Fighter: {
+            this->health[2] = 10 + this->Constitution();
+            break;
+        }
+
+        case Barbarian: {
+            this->health[2] = 12 + this->Constitution();
+            break;
+        }
+
+        case Cleric: {
+            this->health[2] = 8 + this->Constitution();
+            break;
+        }
+
+        case Druid: {
+            this->health[2] = 8 + this->Constitution();
+            break;
+        }
+
+        case Monk: {
+            this->health[2] = 8 + this->Constitution();
+            break;
+        }
+
+        case Paladin: {
+            this->health[2] = 10 + this->Constitution();
+            break;
+        }
+
+        case Ranger: {
+            this->health[2] = 10 + this->Constitution();
+            break;
+        }
+
+        case Sorcerer: {
+            this->health[2] = 6 + this->Constitution();
+            break;
+        }
+
+        case Warlock: {
+            this->health[2] = 8 + this->Constitution();
+            break;
+        }
+
+        case UNDEFINED: {
+            std::cout << "No class selected" << std::endl;
+            break;
+        }
+    }
+}
+
 
 // Convert the CharacterClass enum to a string
 // TODO: Move this to a utility class

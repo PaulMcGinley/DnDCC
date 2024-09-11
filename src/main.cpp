@@ -33,8 +33,7 @@ bool Loop(std::vector<Character> *players) {
         std::cin >> choice; // Get the user's choice
 
         // Switch on the user's choice
-        // I assume this is like C# where at compile time it will be optimized to a jump table
-        // rather than a series of if-else statements
+        // I assume this is like C# where at compile time it will be optimized to a jump table rather than a series of if-else statements
         switch (choice) {
 
             // ---------------------------------------------------------------------------------------------------------
@@ -102,13 +101,16 @@ void NewCharacter(std::vector<Character> *players) {
     }
 
     std::cout << "Character created: " << player.name << " [" << player.Class() << "]" << std::endl;
-    std::cout << "Abilities: " << std::endl;
-    std::cout << "Strength: " << player.Strength() << std::endl;
-    std::cout << "Dexterity: " << player.Dexterity() << std::endl;
-    std::cout << "Constitution: " << player.Constitution() << std::endl;
-    std::cout << "Intelligence: " << player.Intelligence() << std::endl;
-    std::cout << "Wisdom: " << player.Wisdom() << std::endl;
-    std::cout << "Charisma: " << player.Charisma() << std::endl;
+    std::cout << "Abilities:\t\tBase\tBonus\tModifier\tValue" << std::endl;
+    printf("Health:\t\t\t%d\t\t%d\t\t%d\t\t\t%d\n", player.health[0], player.health[1], player.health[2], player.Health());
+    printf("Max Health:\t\t%d\t\t%d\t\t%d\t\t\t%d\n", player.maxHealth[0], player.maxHealth[1], player.maxHealth[2], player.MaxHealth());
+    printf("Strength:\t\t%d\t\t%d\t\t%d\t\t\t%d\n", player.strength[0], player.strength[1], player.strength[2], player.Strength());
+    printf("Dexterity:\t\t%d\t\t%d\t\t%d\t\t\t%d\n", player.dexterity[0], player.dexterity[1], player.dexterity[2], player.Dexterity());
+    printf("Constitution:\t%d\t\t%d\t\t%d\t\t\t%d\n", player.constitution[0], player.constitution[1], player.constitution[2], player.Constitution());
+    printf("Intelligence:\t%d\t\t%d\t\t%d\t\t\t%d\n", player.intelligence[0], player.intelligence[1], player.intelligence[2], player.Intelligence());
+    printf("Wisdom:\t\t\t%d\t\t%d\t\t%d\t\t\t%d\n", player.wisdom[0], player.wisdom[1], player.wisdom[2], player.Wisdom());
+    printf("Charisma:\t\t%d\t\t%d\t\t%d\t\t\t%d\n", player.charisma[0], player.charisma[1], player.charisma[2], player.Charisma());
+
     std::cout << "------------------------------------------" << std::endl;
 
     players->push_back(player);

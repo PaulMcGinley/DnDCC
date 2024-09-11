@@ -9,10 +9,11 @@ class IAbilities {
 public:
     virtual ~IAbilities() = default;
 
+                                     // Base, Bonus, and Modifier
     std::array<int, 3> health        = {0, 0, 0};
     std::array<int, 3> maxHealth     = {0, 0, 0};
 
-    // Base, Bonus, and Modifier
+                                     // Base, Bonus, and Modifier
     std::array<int, 3> strength      = {0, 0, 0};
     std::array<int, 3> dexterity     = {0, 0, 0};
     std::array<int, 3> constitution  = {0, 0, 0};
@@ -20,13 +21,8 @@ public:
     std::array<int, 3> wisdom        = {0, 0, 0};
     std::array<int, 3> charisma      = {0, 0, 0};
 
-    // Noncomplient array declaration
-    //int strength[]      = {0, 0, 0};
-    //int dexterity[]     = {0, 0, 0};
-    //int constitution[]  = {0, 0, 0};
-    //int intelligence[]  = {0, 0, 0};
-    //int wisdom[]        = {0, 0, 0};
-    //int charisma[]      = {0, 0, 0};
+    [[nodiscard]] int Health() const { return this->health[0] + this->health[1] + this->health[2]; }
+    [[nodiscard]] int MaxHealth() const { return this->maxHealth[0] + this->maxHealth[1] + this->maxHealth[2]; }
 
     [[nodiscard]] int Strength() const { return this->strength[0] + this->strength[1] + this->strength[2]; }
     [[nodiscard]] int Dexterity() const { return this->dexterity[0] + this->dexterity[1] + this->dexterity[2]; }

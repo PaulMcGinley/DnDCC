@@ -18,7 +18,6 @@ public:
     std::string name = "New Player";
     CharacterClass characterClass = UNDEFINED;
     std::string Class() { return CharacterClassToString(characterClass); }
-
     std::vector<int> Roll(int count = 1, int sides = 6);
     void GenerateBaseAbilities();
 
@@ -28,6 +27,7 @@ private:
     CharacterClass DetermineClass();
     void SelectClass(CharacterClass);
     std::string CharacterClassToString(CharacterClass characterClass);
+    void AssignClassAbilities();
 };
 
 #endif //CHARACTER_HPP
