@@ -14,7 +14,9 @@ namespace Utility {
     // cli out
     void PrintTitle();
     void PrintCharacterStatSheet(Player *player);
-    void PrintSpacer();
+    void PrintHeader(std::string caption);
+    void PrintSubHeader(std::string caption);
+    void PrintPlayerListRow(int idx, Player *player);
 
     // funcs
     bool IsNameUnique(const std::string& name, const std::vector<std::string>& names);

@@ -16,13 +16,15 @@ class Player : public Abilities {
 public:
     Player(bool new_player = false);
     std::string name;
-    CharacterClass character_class = CharacterClass::UNDEFINED;
+    int level = 1;
+    int experience = 0;
+
+    CharacterClass character_class = UNDEFINED;
     Energy health;
     Energy mana;
     std::vector<int> Roll(int count = 1, int sides = 6) {
         return DiceRoller::getInstance().Roll(count, sides);
     }
-    void PrintStats();
 
 private:
     CharacterClass CheckClassAvailability();
@@ -32,7 +34,9 @@ private:
     void GenerateAbilities();
     int RollForAbility();
 
-    static int CalculateBonus(int value);
+    static int CalculateBonus(int value) {
+        return std::floor ((value - 10) / 2);
+    }
     void SelectClass(CharacterClass list);
     void AssignClassAbilities();
 

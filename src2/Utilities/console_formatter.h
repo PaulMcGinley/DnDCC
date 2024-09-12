@@ -43,6 +43,7 @@ public:
 
     static void ClearConsole() {
         std::cout << "\033[2J\033[1;1H";
+        std::cout << std::flush;
     }
 };
 

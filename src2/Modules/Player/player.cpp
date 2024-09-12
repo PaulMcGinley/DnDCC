@@ -6,29 +6,35 @@
 
 #include <iostream>
 
+#include "../../Utilities/console_formatter.h"
 #include "../../Utilities/utility.h"
 
+// Constructor
 Player::Player(bool new_player) {
-    this->name = "New Player";
-    this->character_class = UNDEFINED;
 
+    this->name = "New Player";                                                                                          // Set the default name
+    this->character_class = UNDEFINED;                                                                                  // Set the default class
+
+    // Check if the player is new and run the character creation process
     if (new_player)
         OnCharacterCreation();
 }
 
+// Call the character creation process
 void Player::OnCharacterCreation() {
-    this->GenerateAbilities();
 
-    CharacterClass available_classes = UNDEFINED;
-    available_classes = CheckClassAvailability();
+    this->GenerateAbilities();                                                                                          // Roll to generate the abilities for the player
 
-    Utility::PrintSpacer();
-    this->SelectClass(available_classes);
+    CharacterClass available_classes = UNDEFINED;                                                                       // Initialize the available classes to UNDEFINED (We use this to check what classes are available)
+    available_classes = CheckClassAvailability();                                                                       // Evaluate the available classes based on the abilities and set the available classes
 
-    Utility::PrintSpacer();
-    this->AssignClassAbilities();
+    this->SelectClass(available_classes);                                                                               // Call the SelectClass function to prompt the user to select a class, passing the available classes
+
+    // If we get here, the class has been selected
+    this->AssignClassAbilities();                                                                                       // Assign the abilities for the selected class
 }
 
+// Randomly generate the abilities for the player
 void Player::GenerateAbilities() {
 
     // Create an empty stat object
@@ -45,6 +51,7 @@ void Player::GenerateAbilities() {
     this->wisdom = empty_stat;
     this->charisma = empty_stat;
 
+    // Roll for each ability and calculate the bonus
     this->strength.base = this->RollForAbility();
     this->strength.bonus = CalculateBonus(this->strength.base);
 
@@ -63,10 +70,13 @@ void Player::GenerateAbilities() {
     this->charisma.base = this->RollForAbility();
     this->charisma.bonus = CalculateBonus(this->charisma.base);
 
-    Utility::PrintCharacterStatSheet(this);
+    // Print the generated abilities
+    std::cout << ConsoleFormat::BOLD;                                                                                   // Set the console to bold for the header
+    Utility::PrintSubHeader("Generated Abilities");                                                            // Print the header (it resets the console to normal)
+    Utility::PrintCharacterStatSheet(this);                                                                       // Print the character stat sheet table
 }
 
-
+// Determine the available classes based on the attributes
 CharacterClass Player::CheckClassAvailability() {
     CharacterClass available_classes = UNDEFINED;
 
@@ -81,6 +91,8 @@ CharacterClass Player::CheckClassAvailability() {
 
     if (this->wisdom.base > 12)
         available_classes = static_cast<CharacterClass>(available_classes | Cleric);
+
+    // TODO: Find real requirements for the classes
 
     if (this->charisma.base > 12)
         available_classes = static_cast<CharacterClass>(available_classes | Bard);
@@ -106,10 +118,12 @@ CharacterClass Player::CheckClassAvailability() {
     if (this->dexterity.base > 12 && this->wisdom.base > 12)
         available_classes = static_cast<CharacterClass>(available_classes | Monk);
 
-    return available_classes;
+    return available_classes;                                                                                           // Return the available classes (stored as a bitfield)
 }
 
 void Player::SelectClass(CharacterClass available_classes) {
+
+    Utility::PrintSubHeader("Please select one of the available classes");
 
     CharacterClass selectedClass = UNDEFINED;                                                                           // Initialize the selected class to UNDEFINED so we can check if it has been set
 
@@ -119,40 +133,40 @@ void Player::SelectClass(CharacterClass available_classes) {
         Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladin, Ranger, Rogue, Sorcerer, Warlock, Wizard
     };
 
-    std::vector<CharacterClass> class_list;                                                                      // Initialize a vector to store the available classes
+    std::vector<CharacterClass> class_list;                                                                             // Initialize a vector to store the available classes
 
     // Loop through all possible classes and check if they are set in characterClass
     for (CharacterClass cls : all_classes)                                                                              // Loop through all classes in the array
-        if (available_classes & cls)                                                                                       // Bitwise AND to check if the class is set
-            class_list.push_back(cls);                                                                           // Add the class to the available classes
+        if (available_classes & cls)                                                                                    // Bitwise AND to check if the class is set
+            class_list.push_back(cls);                                                                                  // Add the class to the available classes
 
-    //std::cout << "Current Class " << Utility::CharacterClassToString(this->character_class) << std::endl;
     while (selectedClass == UNDEFINED) {
-        // Print the possible classes
-        std::cout << "Select a class:" << std::endl;
-        for (size_t i = 0; i < class_list.size(); ++i) {
-            std::cout << i + 1 << "\t" << Utility::CharacterClassToString( class_list[i]) << std::endl;
-        }
 
+        // Print the possible classes
+        for (size_t i = 0; i < class_list.size(); ++i)
+            std::cout << i + 1 << "\t" << Utility::CharacterClassToString(class_list[i]) << std::endl;
+
+        // Print the option to re-roll abilities
         std::cout << "99 " << "\t" << "Re-roll Abilities" << std::endl;
 
         // Get user input and select the class
         int choice;
         std::cin >> choice;
         if (choice == 99) {
-            this->OnCharacterCreation();
-            return;
+            Utility::PrintHeader("(>'-')> Re-rolling attributes <('-'<)");
+            this->OnCharacterCreation();                                                                                // Re-roll the abilities
+            return;                                                                                                     // Exit the function
         }
 
-        if (choice > 0 && choice <= class_list.size()) {
-            selectedClass = class_list[choice - 1];
+        if (choice > 0 && choice <= class_list.size()) {                                                                // Check if the choice is valid
+            selectedClass = class_list[choice - 1];                                                                     // Set the selected class (-1 to account for 0 index)
         } else {
             std::cout << "Invalid choice, please try again." << std::endl;
         }
     }
 
-    this->character_class = selectedClass;
-    AssignClassAbilities();
+    this->character_class = selectedClass;                                                                              // Set the selected class
+    AssignClassAbilities();                                                                                             // Assign the abilities for the selected class
 }
 
 void Player::AssignClassAbilities() {
@@ -225,33 +239,14 @@ void Player::AssignClassAbilities() {
     }
 }
 
-// Convert the CharacterClass enum to a string
-// TODO: Move this to a utility class
-// std::string Player::CharacterClassToString(CharacterClass characterClass) {
-//     switch (characterClass) {
-//         case UNDEFINED: return "UNDEFINED";
-//         case Barbarian: return "Barbarian";
-//         case Bard: return "Bard";
-//         case Cleric: return "Cleric";
-//         case Druid: return "Druid";
-//         case Fighter: return "Fighter";
-//         case Monk: return "Monk";
-//         case Paladin: return "Paladin";
-//         case Ranger: return "Ranger";
-//         case Rogue: return "Rogue";
-//         case Sorcerer: return "Sorcerer";
-//         case Warlock: return "Warlock";
-//         case Wizard: return "Wizard";
-//         default: return "Unknown";
-//     }
-// }
-
 // Roll 4d6 and drop the lowest value
 int Player::RollForAbility() {
     std::vector<int> results;                   // store the results of the roll
     int sum = 0;                                // store the sum of the results
 
     results = this->Roll(4, 6);       // roll 4d6
+
+    //std::cout << "Rolled: " << results[0] << ", " << results[1] << ", " << results[2] << ", " << results[3] << std::endl; // DEBUG
 
     int lowest = INT_MAX;                       // store the lowest value
     for (int result : results) {                // iterate through the results
@@ -262,9 +257,4 @@ int Player::RollForAbility() {
     }
 
     return sum - lowest;                        // return the sum of all numbers minus the lowest value
-}
-
-// Calculate the bonus for an ability score
-int Player::CalculateBonus(int value) {
-    return std::floor ((value - 10) / 2);
 }
