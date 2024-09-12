@@ -61,11 +61,17 @@ build CMakeFiles/DnDCM.dir/Modules/Player/player.cpp.o: CXX_COMPILER__DnDCM_unsc
   OBJECT_DIR = CMakeFiles/DnDCM.dir
   OBJECT_FILE_DIR = CMakeFiles/DnDCM.dir/Modules/Player
 
-build CMakeFiles/DnDCM.dir/Art/Logo.cpp.o: CXX_COMPILER__DnDCM_unscanned_Debug /Users/paul/Documents/GitHub/DnDCC/src2/Art/Logo.cpp || cmake_object_order_depends_target_DnDCM
-  DEP_FILE = CMakeFiles/DnDCM.dir/Art/Logo.cpp.o.d
+build CMakeFiles/DnDCM.dir/Utilities/utility.cpp.o: CXX_COMPILER__DnDCM_unscanned_Debug /Users/paul/Documents/GitHub/DnDCC/src2/Utilities/utility.cpp || cmake_object_order_depends_target_DnDCM
+  DEP_FILE = CMakeFiles/DnDCM.dir/Utilities/utility.cpp.o.d
   FLAGS = -g -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/DnDCM.dir
-  OBJECT_FILE_DIR = CMakeFiles/DnDCM.dir/Art
+  OBJECT_FILE_DIR = CMakeFiles/DnDCM.dir/Utilities
+
+build CMakeFiles/DnDCM.dir/Singletons/DiceRoller.cpp.o: CXX_COMPILER__DnDCM_unscanned_Debug /Users/paul/Documents/GitHub/DnDCC/src2/Singletons/DiceRoller.cpp || cmake_object_order_depends_target_DnDCM
+  DEP_FILE = CMakeFiles/DnDCM.dir/Singletons/DiceRoller.cpp.o.d
+  FLAGS = -g -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/DnDCM.dir
+  OBJECT_FILE_DIR = CMakeFiles/DnDCM.dir/Singletons
 
 
 # =============================================================================
@@ -75,7 +81,7 @@ build CMakeFiles/DnDCM.dir/Art/Logo.cpp.o: CXX_COMPILER__DnDCM_unscanned_Debug /
 #############################################
 # Link the executable DnDCM
 
-build DnDCM: CXX_EXECUTABLE_LINKER__DnDCM_Debug CMakeFiles/DnDCM.dir/main.cpp.o CMakeFiles/DnDCM.dir/Modules/Player/player.cpp.o CMakeFiles/DnDCM.dir/Art/Logo.cpp.o
+build DnDCM: CXX_EXECUTABLE_LINKER__DnDCM_Debug CMakeFiles/DnDCM.dir/main.cpp.o CMakeFiles/DnDCM.dir/Modules/Player/player.cpp.o CMakeFiles/DnDCM.dir/Utilities/utility.cpp.o CMakeFiles/DnDCM.dir/Singletons/DiceRoller.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
   OBJECT_DIR = CMakeFiles/DnDCM.dir
   POST_BUILD = :

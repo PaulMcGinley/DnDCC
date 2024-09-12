@@ -10,6 +10,7 @@
 #include "../../Structures/abilities.h"
 #include "../../Enumerators/chacter_class.h"
 #include "../../Structures/energy.h"
+#include "../../Singletons/DiceRoller.h"
 
 class Player : public Abilities {
 public:
@@ -18,7 +19,9 @@ public:
     CharacterClass character_class = CharacterClass::UNDEFINED;
     Energy health;
     Energy mana;
-    std::vector<int> Roll(int dice = 1, int sides = 6);
+    std::vector<int> Roll(int count = 1, int sides = 6) {
+        return DiceRoller::getInstance().Roll(count, sides);
+    }
     void PrintStats();
 
 private:
@@ -31,8 +34,9 @@ private:
 
     static int CalculateBonus(int value);
     void SelectClass(CharacterClass list);
+    void AssignClassAbilities();
 
-    std::string CharacterClassToString(CharacterClass characterClass);
+    //std::string CharacterClassToString(CharacterClass characterClass);
 };
 
 #endif //PLAYER_HPP

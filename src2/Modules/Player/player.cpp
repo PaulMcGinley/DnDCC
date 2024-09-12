@@ -2,11 +2,11 @@
 // Created by Paul McGinley on 11/09/2024.
 //
 
-#include "Player.h"
+#include "player.h"
 
 #include <iostream>
-#include <random>
-#include <__random/random_device.h>
+
+#include "../../Utilities/utility.h"
 
 Player::Player(bool new_player) {
     this->name = "New Player";
@@ -16,31 +16,34 @@ Player::Player(bool new_player) {
         OnCharacterCreation();
 }
 
-std::vector<int> Player::Roll(int count, int sides) {
-
-    std::vector<int> output;
-
-    // https://en.cppreference.com/w/cpp/numeric/random/uniform_int_distribution
-    std::random_device rd;                                 // obtain a random number from hardware
-    std::mt19937 gen(rd());                             // seed the generator
-    std::uniform_int_distribution<> dis(1, sides);     // define the range
-
-    output.reserve(count);                      // reserve the space for the output
-    for (int i = 0; i < count; i++)             // Iterate through the number of dice to roll
-        output.push_back(dis(gen));        // Roll the dice and add the result to the output
-
-    return output;                              // return the results
-}
-
 void Player::OnCharacterCreation() {
     this->GenerateAbilities();
 
     CharacterClass available_classes = UNDEFINED;
     available_classes = CheckClassAvailability();
+
+    Utility::PrintSpacer();
     this->SelectClass(available_classes);
+
+    Utility::PrintSpacer();
+    this->AssignClassAbilities();
 }
 
 void Player::GenerateAbilities() {
+
+    // Create an empty stat object
+    Stat empty_stat = Stat();
+    empty_stat.base = 0;
+    empty_stat.bonus = 0;
+    empty_stat.modifier = 0;
+
+    // Initialize all stats to the empty stat
+    this->strength = empty_stat;
+    this->dexterity = empty_stat;
+    this->constitution = empty_stat;
+    this->intelligence = empty_stat;
+    this->wisdom = empty_stat;
+    this->charisma = empty_stat;
 
     this->strength.base = this->RollForAbility();
     this->strength.bonus = CalculateBonus(this->strength.base);
@@ -59,6 +62,8 @@ void Player::GenerateAbilities() {
 
     this->charisma.base = this->RollForAbility();
     this->charisma.bonus = CalculateBonus(this->charisma.base);
+
+    Utility::PrintCharacterStatSheet(this);
 }
 
 
@@ -80,7 +85,26 @@ CharacterClass Player::CheckClassAvailability() {
     if (this->charisma.base > 12)
         available_classes = static_cast<CharacterClass>(available_classes | Bard);
 
-    // TODO: Add more classes
+    if (this->strength.base > 12 && this->dexterity.base > 12)
+        available_classes = static_cast<CharacterClass>(available_classes | Fighter);
+
+    if (this->strength.base > 12 && this->wisdom.base > 12)
+        available_classes = static_cast<CharacterClass>(available_classes | Paladin);
+
+    if (this->dexterity.base > 12 && this->wisdom.base > 12)
+        available_classes = static_cast<CharacterClass>(available_classes | Ranger);
+
+    if (this->dexterity.base > 12 && this->charisma.base > 12)
+        available_classes = static_cast<CharacterClass>(available_classes | Rogue);
+
+    if (this->intelligence.base > 12 && this->charisma.base > 12)
+        available_classes = static_cast<CharacterClass>(available_classes | Sorcerer);
+
+    if (this->wisdom.base > 12 && this->charisma.base > 12)
+        available_classes = static_cast<CharacterClass>(available_classes | Warlock);
+
+    if (this->dexterity.base > 12 && this->wisdom.base > 12)
+        available_classes = static_cast<CharacterClass>(available_classes | Monk);
 
     return available_classes;
 }
@@ -102,12 +126,12 @@ void Player::SelectClass(CharacterClass available_classes) {
         if (available_classes & cls)                                                                                       // Bitwise AND to check if the class is set
             class_list.push_back(cls);                                                                           // Add the class to the available classes
 
-    std::cout << "Current Class " << CharacterClassToString(this->character_class) << std::endl;
+    //std::cout << "Current Class " << Utility::CharacterClassToString(this->character_class) << std::endl;
     while (selectedClass == UNDEFINED) {
         // Print the possible classes
         std::cout << "Select a class:" << std::endl;
         for (size_t i = 0; i < class_list.size(); ++i) {
-            std::cout << i + 1 << "\t" << CharacterClassToString( class_list[i]) << std::endl;
+            std::cout << i + 1 << "\t" << Utility::CharacterClassToString( class_list[i]) << std::endl;
         }
 
         std::cout << "99 " << "\t" << "Re-roll Abilities" << std::endl;
@@ -128,28 +152,99 @@ void Player::SelectClass(CharacterClass available_classes) {
     }
 
     this->character_class = selectedClass;
+    AssignClassAbilities();
+}
+
+void Player::AssignClassAbilities() {
+    switch (this->character_class) {
+
+        case Wizard: {
+            this->health.modifier = 6 + this->constitution.value();
+            break;
+        }
+
+        case Bard: {
+            this->health.modifier = 8 + this->constitution.value();
+            break;
+        }
+
+        case Rogue: {
+            this->health.modifier = 8 + this->constitution.value();
+            break;
+        }
+
+        case Fighter: {
+            this->health.modifier = 10 + this->constitution.value();
+            break;
+        }
+
+        case Barbarian: {
+            this->health.modifier = 12 + this->constitution.value();
+            break;
+        }
+
+        case Cleric: {
+            this->health.modifier = 8 + this->constitution.value();
+            break;
+        }
+
+        case Druid: {
+            this->health.modifier = 8 + this->constitution.value();
+            break;
+        }
+
+        case Monk: {
+            this->health.modifier = 8 + this->constitution.value();
+            break;
+        }
+
+        case Paladin: {
+            this->health.modifier = 10 + this->constitution.value();
+            break;
+        }
+
+        case Ranger: {
+            this->health.modifier = 10 + this->constitution.value();
+            break;
+        }
+
+        case Sorcerer: {
+            this->health.modifier = 6 + this->constitution.value();
+            break;
+        }
+
+        case Warlock: {
+            this->health.modifier = 8 + this->constitution.value();
+            break;
+        }
+
+        case UNDEFINED: {
+            std::cout << "No class selected" << std::endl;
+            break;
+        }
+    }
 }
 
 // Convert the CharacterClass enum to a string
 // TODO: Move this to a utility class
-std::string Player::CharacterClassToString(CharacterClass characterClass) {
-    switch (characterClass) {
-        case UNDEFINED: return "UNDEFINED";
-        case Barbarian: return "Barbarian";
-        case Bard: return "Bard";
-        case Cleric: return "Cleric";
-        case Druid: return "Druid";
-        case Fighter: return "Fighter";
-        case Monk: return "Monk";
-        case Paladin: return "Paladin";
-        case Ranger: return "Ranger";
-        case Rogue: return "Rogue";
-        case Sorcerer: return "Sorcerer";
-        case Warlock: return "Warlock";
-        case Wizard: return "Wizard";
-        default: return "Unknown";
-    }
-}
+// std::string Player::CharacterClassToString(CharacterClass characterClass) {
+//     switch (characterClass) {
+//         case UNDEFINED: return "UNDEFINED";
+//         case Barbarian: return "Barbarian";
+//         case Bard: return "Bard";
+//         case Cleric: return "Cleric";
+//         case Druid: return "Druid";
+//         case Fighter: return "Fighter";
+//         case Monk: return "Monk";
+//         case Paladin: return "Paladin";
+//         case Ranger: return "Ranger";
+//         case Rogue: return "Rogue";
+//         case Sorcerer: return "Sorcerer";
+//         case Warlock: return "Warlock";
+//         case Wizard: return "Wizard";
+//         default: return "Unknown";
+//     }
+// }
 
 // Roll 4d6 and drop the lowest value
 int Player::RollForAbility() {
@@ -158,8 +253,8 @@ int Player::RollForAbility() {
 
     results = this->Roll(4, 6);       // roll 4d6
 
-    int lowest = 0;
-    for (int result : results) {  // iterate through the results
+    int lowest = INT_MAX;                       // store the lowest value
+    for (int result : results) {                // iterate through the results
         sum += result;                   // add the current value to the sum
 
         if (result < lowest)
@@ -172,14 +267,4 @@ int Player::RollForAbility() {
 // Calculate the bonus for an ability score
 int Player::CalculateBonus(int value) {
     return std::floor ((value - 10) / 2);
-}
-
-void Player::PrintStats() {
-    std::cout << "Abilities:\t\tBase\tBonus\tModifier\tValue" << std::endl;
-    printf("Strength:\t\t%d\t\t%d\t\t%d\t\t\t%d\n", this->strength.base, this->strength.bonus, this->strength.modifier, this->strength.value());
-    printf("Dexterity:\t\t%d\t\t%d\t\t%d\t\t\t%d\n", this->dexterity.base, this->dexterity.bonus, this->dexterity.modifier, this->dexterity.value());
-    printf("Constitution:\t%d\t\t%d\t\t%d\t\t\t%d\n", this->constitution.base, this->constitution.bonus, this->constitution.modifier, this->constitution.value());
-    printf("Intelligence:\t%d\t\t%d\t\t%d\t\t\t%d\n", this->intelligence.base, this->intelligence.bonus, this->intelligence.modifier, this->intelligence.value());
-    printf("Wisdom:\t\t\t%d\t\t%d\t\t%d\t\t\t%d\n", this->wisdom.base, this->wisdom.bonus, this->wisdom.modifier, this->wisdom.value());
-    printf("Charisma:\t\t%d\t\t%d\t\t%d\t\t\t%d\n", this->charisma.base, this->charisma.bonus, this->charisma.modifier, this->charisma.value());
 }

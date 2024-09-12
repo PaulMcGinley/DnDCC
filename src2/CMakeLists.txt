@@ -17,7 +17,9 @@ add_executable(DnDCM main.cpp
         Modules/Player/player.cpp
         Modules/Player/player.h
         Structures/energy.h
-        Interfaces/IDraw.h
-        Art/Logo.cpp
-        Art/Logo.h
+        Utilities/utility.h
+        Utilities/utility.cpp
+        Singletons/DiceRoller.cpp
+        Singletons/DiceRoller.h
+        Utilities/console_formatter.h
 )

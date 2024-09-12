@@ -1,69 +1,36 @@
 #include <iostream>
 
+#include "Utilities/utility.h"
 #include "Modules/Player/player.h"
+#include "Utilities/console_formatter.h"
 
+bool MainLoop(std::vector<Player> *players);
 void MainMenu(std::vector<Player> *players);
 void CreateCharacter(std::vector<Player> *players);
-void LoadCharacter(std::vector<Player> *players);
+void ListCharacters(std::vector<Player> *players);
 void Exit();
 
 int main() {
 
+    Utility::PrintTitle();
+    ConsoleFormat::PrintRightAligned("v.01 By Paul F. McGinley (2024)");
+
     std::vector<Player> players;
 
-    // std::cout << "Hello, World!" << std::endl;
-    //
-    // std::cout << "  ████████████  " << std::endl;
-    // std::cout << "██            ██" << std::endl;
-    // std::cout << "██    █   █   ██" << std::endl;
-    // std::cout << "██            ██" << std::endl;
-    // std::cout << "██      █     ██" << std::endl;
-    // std::cout << "██            ██" << std::endl;
-    // std::cout << "  ████████████  " << std::endl;
-    // std::cout << "  █ ██ ██ ██ █  " << std::endl;
-    // std::cout << "  ████████████  " << std::endl;
-
-    std::cout << R"(
- ______            _        _______  _______  _______  _        _______          __        ______   _______  _______  _______  _______  _        _______
-(  __  \ |\     /|( (    /|(  ____ \(  ____ \(  ___  )( (    /|(  ____ \        /__\      (  __  \ (  ____ )(  ___  )(  ____ \(  ___  )( (    /|(  ____ \
-| (  \  )| )   ( ||  \  ( || (    \/| (    \/| (   ) ||  \  ( || (    \/       ( \/ )     | (  \  )| (    )|| (   ) || (    \/| (   ) ||  \  ( || (    \/
-| |   ) || |   | ||   \ | || |      | (__    | |   | ||   \ | || (_____         \  /      | |   ) || (____)|| (___) || |      | |   | ||   \ | || (_____
-| |   | || |   | || (\ \) || | ____ |  __)   | |   | || (\ \) |(_____  )        /  \/\    | |   | ||     __)|  ___  || | ____ | |   | || (\ \) |(_____  )
-| |   ) || |   | || | \   || | \_  )| (      | |   | || | \   |      ) |       / /\  /    | |   ) || (\ (   | (   ) || | \_  )| |   | || | \   |      ) |
-| (__/  )| (___) || )  \  || (___) || (____/\| (___) || )  \  |/\____) |      (  \/  \    | (__/  )| ) \ \__| )   ( || (___) || (___) || )  \  |/\____) |
-(______/ (_______)|/    )_)(_______)(_______/(_______)|/    )_)\_______)       \___/\/    (______/ |/   \__/|/     \|(_______)(_______)|/    )_)\_______)
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
- _______           _______ _________ _______  _______ _________ _______  _______           _______  _______  _        _______  _______  _______  _______
-(  ____ \|\     /|(  ___  )\__   __/(  ___  )(  ____ \\__   __/(  ____ \(  ____ )         (       )(  ___  )( (    /|(  ___  )(  ____ \(  ____ \(  ____ )
-| (    \/| )   ( || (   ) |   ) (   | (   ) || (    \/   ) (   | (    \/| (    )|         | () () || (   ) ||  \  ( || (   ) || (    \/| (    \/| (    )|
-| |      | (___) || (___) |   | |   | (___) || |         | |   | (__    | (____)|   _____ | || || || (___) ||   \ | || (___) || |      | (__    | (____)|
-| |      |  ___  ||  ___  |   | |   |  ___  || |         | |   |  __)   |     __)  (_____)| |(_)| ||  ___  || (\ \) ||  ___  || | ____ |  __)   |     __)
-| |      | (   ) || (   ) |   | |   | (   ) || |         | |   | (      | (\ (            | |   | || (   ) || | \   || (   ) || | \_  )| (      | (\ (
-| (____/\| )   ( || )   ( |   | |   | )   ( || (____/\   | |   | (____/\| ) \ \__         | )   ( || )   ( || )  \  || )   ( || (___) || (____/\| ) \ \__
-(_______/|/     \||/     \|   )_(   |/     \|(_______/   )_(   (_______/|/   \__/         |/     \||/     \||/    )_)|/     \|(_______)(_______/|/   \__/
-
-    )" << std::endl;
-
-    std::cout << R"(
-·▄▄▄▄  ▄• ▄▌ ▐ ▄  ▄▄ • ▄▄▄ .       ▐ ▄ .▄▄ ·      ▐ ▄     ·▄▄▄▄  ▄▄▄   ▄▄▄·  ▄▄ •        ▐ ▄ .▄▄ ·
-██▪ ██ █▪██▌•█▌▐█▐█ ▀ ▪▀▄.▀·▪     •█▌▐█▐█ ▀.     •█▌▐█    ██▪ ██ ▀▄ █·▐█ ▀█ ▐█ ▀ ▪▪     •█▌▐█▐█ ▀.
-▐█· ▐█▌█▌▐█▌▐█▐▐▌▄█ ▀█▄▐▀▀▪▄ ▄█▀▄ ▐█▐▐▌▄▀▀▀█▄    ▐█▐▐▌    ▐█· ▐█▌▐▀▀▄ ▄█▀▀█ ▄█ ▀█▄ ▄█▀▄ ▐█▐▐▌▄▀▀▀█▄
-██. ██ ▐█▄█▌██▐█▌▐█▄▪▐█▐█▄▄▌▐█▌.▐▌██▐█▌▐█▄▪▐█    ██▐█▌    ██. ██ ▐█•█▌▐█ ▪▐▌▐█▄▪▐█▐█▌.▐▌██▐█▌▐█▄▪▐█
-▀▀▀▀▀•  ▀▀▀ ▀▀ █▪·▀▀▀▀  ▀▀▀  ▀█▄▀▪▀▀ █▪ ▀▀▀▀     ▀▀ █▪    ▀▀▀▀▀• .▀  ▀ ▀  ▀ ·▀▀▀▀  ▀█▄▀▪▀▀ █▪ ▀▀▀▀
-     ▄▄·  ▄ .▄ ▄▄▄· ▄▄▄▄▄ ▄▄▄·  ▄▄· ▄▄▄▄▄▄▄▄ .▄▄▄      • ▌ ▄ ·.  ▄▄▄·  ▐ ▄  ▄▄▄·  ▄▄ • ▄▄▄ .▄▄▄
-    ▐█ ▌▪██▪▐█▐█ ▀█ •██  ▐█ ▀█ ▐█ ▌▪•██  ▀▄.▀·▀▄ █·    ·██ ▐███▪▐█ ▀█ •█▌▐█▐█ ▀█ ▐█ ▀ ▪▀▄.▀·▀▄ █·
-    ██ ▄▄██▀▐█▄█▀▀█  ▐█.▪▄█▀▀█ ██ ▄▄ ▐█.▪▐▀▀▪▄▐▀▀▄     ▐█ ▌▐▌▐█·▄█▀▀█ ▐█▐▐▌▄█▀▀█ ▄█ ▀█▄▐▀▀▪▄▐▀▀▄
-    ▐███▌██▌▐▀▐█ ▪▐▌ ▐█▌·▐█ ▪▐▌▐███▌ ▐█▌·▐█▄▄▌▐█•█▌    ██ ██▌▐█▌▐█ ▪▐▌██▐█▌▐█ ▪▐▌▐█▄▪▐█▐█▄▄▌▐█•█▌
-    ·▀▀▀ ▀▀▀ · ▀  ▀  ▀▀▀  ▀  ▀ ·▀▀▀  ▀▀▀  ▀▀▀ .▀  ▀    ▀▀  █▪▀▀▀ ▀  ▀ ▀▀ █▪ ▀  ▀ ·▀▀▀▀  ▀▀▀ .▀  ▀
-    )" << std::endl;
-
-    MainMenu(&players);
+    bool running = true;
+    while (running) {
+        running = MainLoop(&players);
+    }
 
     return 0;
 }
 
+bool MainLoop(std::vector<Player> *players) {
+    MainMenu(players);
+    return true;
+}
+
 void MainMenu(std::vector<Player> *players) {
-    std::cout << "Dungeons & Dragons - Character Manager, v.01 | By Paul F. McGinley (2024)" << std::endl;
     std::cout << "#\tDescription" << std::endl;
     std::cout << "1\tCreate a new character" << std::endl;
     std::cout << "2\tLoad an existing character" << std::endl;
@@ -84,6 +51,7 @@ void MainMenu(std::vector<Player> *players) {
             case 1: {
                 valid = true;
                 std::cout << "-----> Creating a new character" << std::endl;
+                ConsoleFormat::ClearConsole();
                 CreateCharacter(players);
                 break;
             }
@@ -93,20 +61,22 @@ void MainMenu(std::vector<Player> *players) {
             case 2: {
                 valid = true;
                 std::cout << "-----> Loading an existing character" << std::endl;
-                //ListCharacters(players);
+                Utility::PrintSpacer();
+                ListCharacters(players);
                 break;
             }
 
             // ---------------------------------------------------------------------------------------------------------
             // Exit
             case 3: {
+                Utility::PrintSpacer();
                 std::cout << "-----> Exiting" << std::endl;
-                //return false; // Exit the program
             }
 
             // ---------------------------------------------------------------------------------------------------------
             // Butter fingers
             default: {
+                Utility::PrintSpacer();
                 std::cout << "-----> Invalid choice" << std::endl;
                 break;
             }
@@ -132,7 +102,16 @@ void CreateCharacter(std::vector<Player> *players) {
             }
         }
     }
-
-
+    Utility::PrintCharacterStatSheet(&player);
     players->push_back(player);
+}
+
+void ListCharacters(std::vector<Player> *players) {
+    if (!players->empty()) {
+        for (int i = 0; i < players->size(); i++) {
+            std::cout << i << "\t" << players->at(i).name << "\t" << Utility::CharacterClassToString(players->at(i).character_class) << std::endl;
+        }
+    } else {
+        std::cout << "No characters found" << std::endl;
+    }
 }
