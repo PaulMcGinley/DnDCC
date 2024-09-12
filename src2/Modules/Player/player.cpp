@@ -241,20 +241,20 @@ void Player::AssignClassAbilities() {
 
 // Roll 4d6 and drop the lowest value
 int Player::RollForAbility() {
-    std::vector<int> results;                   // store the results of the roll
-    int sum = 0;                                // store the sum of the results
+    std::vector<int> results;                                                                                           // store the results of the roll
+    int sum = 0;                                                                                                        // store the sum of the results
 
-    results = this->Roll(4, 6);       // roll 4d6
+    results = this->Roll(4, 6);                                                                               // roll 4d6
 
     //std::cout << "Rolled: " << results[0] << ", " << results[1] << ", " << results[2] << ", " << results[3] << std::endl; // DEBUG
 
-    int lowest = INT_MAX;                       // store the lowest value
-    for (int result : results) {                // iterate through the results
-        sum += result;                   // add the current value to the sum
+    int lowest = INT_MAX;                                                                                               // store the lowest value, default to the highest possible value
+    for (int result : results) {                                                                                        // iterate through the results
+        sum += result;                                                                                                  // add the current value to the sum
 
-        if (result < lowest)
-            lowest = result;                // set the lowest to the current value
+        if (result < lowest)                                                                                            // check if the current value is lower than the lowest
+            lowest = result;                                                                                            // set the lowest to the current value
     }
 
-    return sum - lowest;                        // return the sum of all numbers minus the lowest value
+    return sum - lowest;                                                                                                // return the sum of all numbers minus the lowest value
 }
