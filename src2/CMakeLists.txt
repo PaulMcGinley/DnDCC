@@ -26,4 +26,6 @@ add_executable(DnDCM main.cpp
         Modules/Loot/loot_table.h
         Modules/CSV_Parser/csv_parser.h
         Modules/CSV_Parser/csv_parser.cpp
+        Utilities/input.cpp
+        Utilities/input.h
 )

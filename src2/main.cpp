@@ -3,20 +3,24 @@
 #include "Utilities/utility.h"
 #include "Modules/Player/player.h"
 #include "Utilities/console_formatter.h"
+#include "Utilities/input.h"
 
 bool MainLoop(std::vector<Player> *players);
 void MainMenu(std::vector<Player> *players);
 void CreateCharacter(std::vector<Player> *players);
 void ListCharacters(std::vector<Player> *players);
+void ViewCharacter(Player *player);
 void Exit();
 
 int main() {
 
+    // Headers
     Utility::PrintTitle();
-
     ConsoleFormat::PrintRightAligned("v.01 By Paul F. McGinley (2024)");
 
     std::vector<Player> players;
+    // Loot tables
+    // Encounter tables
 
     bool running = true;
     while (running) {
@@ -46,7 +50,10 @@ void MainMenu(std::vector<Player> *players) {
     int choice;                                                                                                         // User's choice
     bool valid = false;                                                                                                 // Flag to check if the choice is valid
     while (!valid) {                                                                                                    // Loop until the choice is valid
-        std::cin >> choice;                                                                                             // Get the user's choice
+        std::cout << ConsoleFormat::BG_WHITE << ConsoleFormat::BLACK;                                                   // Set the text color
+        InputUtils::GetInt(choice, "Enter the number of the option you wish to select: ");                               // Ask the user for their choice
+        std::cout << ConsoleFormat::RESET;                                                                              // Reset the text color
+        //std::cin >> choice;                                                                                             // Get the user's choice
 
         // Switch on the user's choice
         // I assume this is like C# where at compile time it will be optimized to a jump table rather than a series of if-else statements
@@ -96,8 +103,9 @@ void CreateCharacter(std::vector<Player> *players) {
     bool unique = false;                                                                                                // Flag to check if the name is unique
     while (!unique) {                                                                                                   // Loop until the name is unique
 
-        std::cout << "Enter the name of the character: ";
-        std::cin >> player.name;                                                                                        // Get the name from the user
+        InputUtils::GetString(player.name, "Enter the name of the character: ");                                         // Ask the user for the name
+        //std::cout << "Enter the name of the character: ";
+        //std::cin >> player.name;                                                                                        // Get the name from the user
 
         unique = true;                                                                                                  // Assume the name is unique
         for (auto & p : *players)                                                                                // Loop through the list of players
@@ -133,6 +141,22 @@ void ListCharacters(std::vector<Player> *players) {
     int choice;                                                                                                         // User's choice
     bool valid = false;                                                                                                 // Flag to check if the choice is valid
     while (!valid) {                                                                                                    // Loop until the choice is valid
-        std::cin >> choice;                                                                                             // Get the user's choice
+        InputUtils::GetInt(choice, "Enter the number of the character you wish to view: ");                              // Ask the user for their choice
+        //std::cout << "Enter the number of the character you wish to view: ";                                            // Ask the user for their choice
+        //std::cin >> choice;                                                                                             // Get the user's choice
+        std::cout << std::endl;
+        if (choice >= 0 && choice < players->size()) {                                                                   // Check if the choice is valid
+            valid = true;                                                                                               // Set the flag to true
+            ViewCharacter(&players->at(choice));                                                                         // View the character
+        } else {
+            std::cout << "-----> Invalid choice" << std::endl;                                                           // Print an error message
+        }
     }
+}
+
+void ViewCharacter(Player *player) {
+
+    ConsoleFormat::ClearConsole();                                                                                      // Clear the console
+    Utility::PrintHeader("Character Viewer : " + player->name);                                                     // Print the header
+    Utility::PrintCharacterStatSheet(player);                                                                            // Print the character's stats
 }

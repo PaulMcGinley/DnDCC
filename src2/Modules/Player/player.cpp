@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "../../Utilities/console_formatter.h"
+#include "../../Utilities/input.h"
 #include "../../Utilities/utility.h"
 
 // Constructor
@@ -162,7 +163,8 @@ void Player::SelectClass(CharacterClass available_classes) {
 
         // Get user input and select the class
         int choice;
-        std::cin >> choice;
+        InputUtils::GetInt(choice, "Please select a class: ");
+        //std::cin >> choice;
         if (choice == 99) {
             Utility::PrintHeader("(>'-')> Re-rolling attributes <('-'<)");
             this->OnCharacterCreation();                                                                                // Re-roll the abilities
