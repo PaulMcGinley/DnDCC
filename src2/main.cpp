@@ -4,6 +4,7 @@
 #include "Modules/Player/player.h"
 #include "Utilities/console_formatter.h"
 #include "Utilities/input.h"
+#include "Utilities/name_generator.h"
 
 bool MainLoop(std::vector<Player> *players);
 void MainMenu(std::vector<Player> *players);
@@ -106,6 +107,11 @@ void CreateCharacter(std::vector<Player> *players) {
         InputUtils::GetString(player.name, "Enter the name of the character: ");                                         // Ask the user for the name
         //std::cout << "Enter the name of the character: ";
         //std::cin >> player.name;                                                                                        // Get the name from the user
+
+        if (player.name.empty()) {                                                                                      // Check if the name is empty
+            player.name = NameGenerator::generateName(2,8) + " " + NameGenerator::generateName(1,5);                                                                // Generate a random name
+            std::cout << "Random name generated: " << player.name << std::endl;                                          // Print the random name// Ask again....
+        }
 
         unique = true;                                                                                                  // Assume the name is unique
         for (auto & p : *players)                                                                                // Loop through the list of players
