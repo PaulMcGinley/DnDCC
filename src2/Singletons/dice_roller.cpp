@@ -2,7 +2,7 @@
 // Created by Paul McGinley on 12/09/2024.
 //
 
-#include "DiceRoller.h"
+#include "dice_roller.h"
 #include <random>
 
 std::mutex DiceRoller::mtx;                                                                                             // Initialize the mutex

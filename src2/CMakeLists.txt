@@ -19,7 +19,11 @@ add_executable(DnDCM main.cpp
         Structures/energy.h
         Utilities/utility.h
         Utilities/utility.cpp
-        Singletons/DiceRoller.cpp
-        Singletons/DiceRoller.h
+        Singletons/dice_roller.cpp
+        Singletons/dice_roller.h
         Utilities/console_formatter.h
+        Modules/Loot/loot_table.cpp
+        Modules/Loot/loot_table.h
+        Modules/CSV_Parser/csv_parser.h
+        Modules/CSV_Parser/csv_parser.cpp
 )

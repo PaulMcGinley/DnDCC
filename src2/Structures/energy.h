@@ -13,11 +13,11 @@ struct Energy {
     int modifier;
     int remaining;
 
-    int Max() {
+    int Max() const {
         return base + bonus + modifier;
     };
 
-    int Percent() {
+    int Percent() const {
         return remaining / Max();
     };
 

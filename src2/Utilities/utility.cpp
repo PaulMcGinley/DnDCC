@@ -5,6 +5,7 @@
 #include "utility.h"
 #include <iostream>
 #include <algorithm>
+#include <__format/format_functions.h>
 
 #include "console_formatter.h"
 #include "../Modules/Player/player.h"
@@ -73,6 +74,8 @@ namespace Utility {
         printRow("Intelligence", player->intelligence.base, player->intelligence.bonus, player->intelligence.modifier, player->intelligence.value());
         printRow("Wisdom", player->wisdom.base, player->wisdom.bonus, player->wisdom.modifier, player->wisdom.value());
         printRow("Charisma", player->charisma.base, player->charisma.bonus, player->charisma.modifier, player->charisma.value());
+        printRow("Health", player->health.base, player->health.bonus, player->health.modifier, player->health.Max());
+        printRow("Mana", player->mana.base, player->mana.bonus, player->mana.modifier, player->mana.Max());
     }
 
     void PrintHeader(std::string caption) {
@@ -114,6 +117,16 @@ namespace Utility {
         std::cout << ConsoleFormat::CYAN << hyphens << ConsoleFormat::RESET << std::endl;
     }
 
+    void PrintPlayerListHeader() {
+        std::cout << ConsoleFormat::BOLD << std::left
+                  << std::setw(5) << "Idx"
+                  << std::setw(30) << "Name"
+                  << std::setw(20) << "Class"
+                  << std::setw(10) << "Level"
+                  << std::setw(10) << "Experience"
+                  << ConsoleFormat::RESET << std::endl;
+    }
+
     void PrintPlayerListRow(int idx, Player *player) {
         const int totalLength = 153;
         const int idxWidth = 5;
@@ -134,6 +147,7 @@ namespace Utility {
                   << std::setw(remainingWidth) << " " // Fill the remaining space with spaces
                   << std::endl;
 
+        //PrintCharacterStatSheet(player);
     }
 
 

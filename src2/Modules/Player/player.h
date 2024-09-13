@@ -10,7 +10,7 @@
 #include "../../Structures/abilities.h"
 #include "../../Enumerators/chacter_class.h"
 #include "../../Structures/energy.h"
-#include "../../Singletons/DiceRoller.h"
+#include "../../Singletons/dice_roller.h"
 
 class Player : public Abilities {
 public:
@@ -39,8 +39,6 @@ private:
     }
     void SelectClass(CharacterClass list);
     void AssignClassAbilities();
-
-    //std::string CharacterClassToString(CharacterClass characterClass);
 };
 
 #endif //PLAYER_HPP

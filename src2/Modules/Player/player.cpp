@@ -32,10 +32,21 @@ void Player::OnCharacterCreation() {
 
     // If we get here, the class has been selected
     this->AssignClassAbilities();                                                                                       // Assign the abilities for the selected class
+    this->health.remaining = this->health.Max();                                                                        // Set the health to the maximum value
+    this->mana.remaining = this->mana.Max();                                                                            // Set the mana to the maximum value
 }
 
 // Randomly generate the abilities for the player
 void Player::GenerateAbilities() {
+
+    // Create an empty energy object
+    Energy empty_energy = Energy();                                                                                     // Create an empty energy object
+    empty_energy.base = 0;                                                                                              // Set the base to 0
+    empty_energy.bonus = 0;                                                                                             // Set the bonus to 0
+    empty_energy.modifier = 0;                                                                                          // Set the modifier to 0
+
+    this->health = empty_energy;                                                                                        // Initialize the health to the empty energy object
+    this->mana = empty_energy;                                                                                          // Initialize the mana to the empty energy object
 
     // Create an empty stat object
     Stat empty_stat = Stat();

@@ -108,8 +108,6 @@ void CreateCharacter(std::vector<Player> *players) {
             }
     }
 
-    //Utility::PrintCharacterStatSheet(&player);                                                                          // Print the character's stats DEBUG
-
     // The name is unique, so we can continue
     players->push_back(player);                                                                                         // Add the character to the list of players
 }
@@ -127,17 +125,14 @@ void ListCharacters(std::vector<Player> *players) {
     std::cout << std::endl << "Below is a list of created characters." << std::endl;
     std::cout              << "Select the character you with to interact with." << std::endl << std::endl;
 
-    std::cout << ConsoleFormat::BOLD << std::left
-          << std::setw(5) << "Idx"
-          << std::setw(30) << "Name"
-          << std::setw(20) << "Class"
-          << std::setw(10) << "Level"
-          << std::setw(10) << "Experience"
-          //<< std::setw(78) << " " // Fill the remaining space with spaces
-          << ConsoleFormat::RESET << std::endl;
+    Utility::PrintPlayerListHeader();                                                                                   // Print the header for the list of players
 
-    for (int i = 0; i < players->size(); i++) {
+    for (int i = 0; i < players->size(); i++)
         Utility::PrintPlayerListRow(i, &players->at(i));
-        //std::cout << i << "\t" << players->at(i).name << "\t" << Utility::CharacterClassToString(players->at(i).character_class) << std::endl;
+
+    int choice;                                                                                                         // User's choice
+    bool valid = false;                                                                                                 // Flag to check if the choice is valid
+    while (!valid) {                                                                                                    // Loop until the choice is valid
+        std::cin >> choice;                                                                                             // Get the user's choice
     }
 }
