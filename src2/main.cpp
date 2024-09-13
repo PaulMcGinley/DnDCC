@@ -16,42 +16,6 @@ void Exit();
 
 int main() {
 
-    // std::cout << std::endl << ConsoleFormat::BOLD << "Trollish:" << std::endl << ConsoleFormat::RESET;
-    // for (int i = 0; i < 10; i++)
-    //     std::cout << NameGenerator::generateName(1,2, NameGenerator::TROLLISH_SYLLABLES) + " " + NameGenerator::generateName(2,3,NameGenerator::TROLLISH_SYLLABLES) << std::endl;
-    //
-    // std::cout << std::endl << ConsoleFormat::BOLD << "Orcish:" << std::endl << ConsoleFormat::RESET;
-    // for (int i = 0; i < 10; i++)
-    //     std::cout << NameGenerator::generateName(1,2, NameGenerator::ORCISH_SYLLABLES) + " " + NameGenerator::generateName(2,2,NameGenerator::ORCISH_SYLLABLES) << std::endl;
-    //
-    // std::cout << std::endl << ConsoleFormat::BOLD << "Entish:" << std::endl << ConsoleFormat::RESET;
-    // for (int i = 0; i < 10; i++)
-    //     std::cout << NameGenerator::generateName(2,4, NameGenerator::ENTISH_SYLLABLES) + " " + NameGenerator::generateName(2,5,NameGenerator::ENTISH_SYLLABLES) << std::endl;
-    //
-    // std::cout << std::endl << ConsoleFormat::BOLD << "Elvish (Male):" << std::endl << ConsoleFormat::RESET;
-    // for (int i = 0; i < 10; i++)
-    //     std::cout << NameGenerator::generateName(2,3, NameGenerator::ELVISH_SYLLABLES_MALE) + " " + NameGenerator::generateName(2,4,NameGenerator::ELVISH_SYLLABLES_MALE) << std::endl;
-    //
-    // std::cout << std::endl << ConsoleFormat::BOLD << "Elvish (Female):" << std::endl << ConsoleFormat::RESET;
-    // for (int i = 0; i < 10; i++)
-    //     std::cout << NameGenerator::generateName(2,3, NameGenerator::ELVISH_SYLLABLES_FEMALE) + " " + NameGenerator::generateName(2,4,NameGenerator::ELVISH_SYLLABLES_FEMALE) << std::endl;
-    //
-    // std::cout << std::endl << ConsoleFormat::BOLD << "Gaelic:" << std::endl << ConsoleFormat::RESET;
-    // for (int i = 0; i < 10; i++)
-    //     std::cout << NameGenerator::generateName(2,4, NameGenerator::GAELIC_SYLLABLES) + " " + NameGenerator::generateName(2,5,NameGenerator::GAELIC_SYLLABLES) << std::endl;
-    //
-    // std::cout << std::endl << ConsoleFormat::BOLD << "Generic:" << std::endl << ConsoleFormat::RESET;
-    // for (int i = 0; i < 10; i++)
-    //     std::cout << NameGenerator::generateName(1,4) + " " + NameGenerator::generateName(1,5) << std::endl;
-    //
-    // std::cout << std::endl << ConsoleFormat::BOLD << "Drawrvish (Male):" << std::endl << ConsoleFormat::RESET;
-    // for (int i = 0; i < 10; i++)
-    //     std::cout << NameGenerator::generateName(2,2, NameGenerator::DWARVISH_SYLLABLES_MALE) + " " + NameGenerator::generateName(2,3,NameGenerator::DWARVISH_SYLLABLES_MALE) << std::endl;
-    //
-    // std::cout << std::endl << ConsoleFormat::BOLD << "Drawrvish (Female):" << std::endl << ConsoleFormat::RESET;
-    // for (int i = 0; i < 10; i++)
-    //     std::cout << NameGenerator::generateName(2,2, NameGenerator::DWARVISH_SYLLABLES_FEMALE) + " " + NameGenerator::generateName(2,3,NameGenerator::DWARVISH_SYLLABLES_FEMALE) << std::endl;
-
     // Headers
     //Utility::PrintTitle();
     ConsoleFormat::PrintRightAligned("v.01 By Paul F. McGinley (2024)");
@@ -83,15 +47,12 @@ void MainMenu(std::vector<Player> *players) {
     std::cout << ConsoleFormat::BOLD << "#\t" << "Description" << ConsoleFormat::RESET << std::endl;
     std::cout                        << "1\t" << "Create a new character" << std::endl;
     std::cout                        << "2\t" << "Load an existing character" << std::endl;
-    std::cout                        << "3\t" << ConsoleFormat::BOLD << ConsoleFormat::BG_RED << ConsoleFormat::BLACK << "Exit" << ConsoleFormat::RESET << std::endl;
+    std::cout                        << "3\t" << ConsoleFormat::BOLD << ConsoleFormat::BG_RED << ConsoleFormat::BLACK << "Exit" << ConsoleFormat::RESET << std::endl << std::endl;
 
     int choice;                                                                                                         // User's choice
     bool valid = false;                                                                                                 // Flag to check if the choice is valid
     while (!valid) {                                                                                                    // Loop until the choice is valid
-        std::cout << ConsoleFormat::BG_WHITE << ConsoleFormat::BLACK;                                                   // Set the text color
-        InputUtils::GetInt(choice, "Option >");                                                             // Ask the user for their choice
-        std::cout << ConsoleFormat::RESET;                                                                              // Reset the text color
-        //std::cin >> choice;                                                                                             // Get the user's choice
+        InputUtils::GetInt(choice, "Option > ");                                                             // Ask the user for their choice
 
         // Switch on the user's choice
         // I assume this is like C# where at compile time it will be optimized to a jump table rather than a series of if-else statements
@@ -140,28 +101,33 @@ void CreateCharacter(std::vector<Player> *players) {
     bool unique = false;                                                                                                // Flag to check if the name is unique
     while (!unique) {                                                                                                   // Loop until the name is unique
 
-        InputUtils::GetString(player.name, "Enter the name of the character (Leave blank to generate a name: ");                                         // Ask the user for the name
+        Utility::PrintSubHeader("Enter the name of the character");                                              // Print the subheader
+        std::cout  << "Enter a unique name or alternatively leave the field blank to use the Name Generator." << std::endl << std::endl;                       // Ask the user for the name
+        InputUtils::GetString(player.name, "Name > ");                                         // Ask the user for the name
         //std::cout << "Enter the name of the character: ";
         //std::cin >> player.name;                                                                                        // Get the name from the user
 
         if (player.name.empty()) {                                                                                      // Check if the name is empty
 
             Utility::PrintHeader("Name Generator");                                                             // Print the subheader
-            std::cout << Syllables::Generic << "\t" << Utility::SyllableToString(Syllables::Generic) << std::endl;                // Print the syllable
-            std::cout << Syllables::Entish << "\t" << Utility::SyllableToString(Syllables::Entish) << std::endl;                  // Print the syllable
-            std::cout << Syllables::Gaelic << "\t" << Utility::SyllableToString(Syllables::Gaelic) << std::endl;                  // Print the syllable
-            std::cout << Syllables::Trollish << "\t" << Utility::SyllableToString(Syllables::Trollish) << std::endl;              // Print the syllable
-            std::cout << Syllables::Orcish << "\t" << Utility::SyllableToString(Syllables::Orcish) << std::endl;                  // Print the syllable
-            std::cout << Syllables::Elvish_Male << "\t" << Utility::SyllableToString(Syllables::Elvish_Male) << std::endl;        // Print the syllable
-            std::cout << Syllables::Elvish_Female << "\t" << Utility::SyllableToString(Syllables::Elvish_Female) << std::endl;    // Print the syllable
-            std::cout << Syllables::Dwarvish_Male << "\t" << Utility::SyllableToString(Syllables::Dwarvish_Male) << std::endl;    // Print the syllable
-            std::cout << Syllables::Dwarvish_Female << "\t" << Utility::SyllableToString(Syllables::Dwarvish_Female) << std::endl;// Print the syllable
 
+            std::cout << std::endl << "Please select the language origin of the name to be generated." << std::endl << std::endl;                                   // Ask the user for the language origin
+            std::cout << ConsoleFormat::BOLD << "Option\tLanguage Origin" << ConsoleFormat::RESET << std::endl;                                                        // Print the subheader
+            std::cout << Syllables::Generic << "\t\t" << Utility::SyllableToString(Syllables::Generic) << std::endl;                // Print the syllable
+            std::cout << Syllables::Entish << "\t\t" << Utility::SyllableToString(Syllables::Entish) << std::endl;                  // Print the syllable
+            std::cout << Syllables::Gaelic << "\t\t" << Utility::SyllableToString(Syllables::Gaelic) << std::endl;                  // Print the syllable
+            std::cout << Syllables::Trollish << "\t\t" << Utility::SyllableToString(Syllables::Trollish) << std::endl;              // Print the syllable
+            std::cout << Syllables::Orcish << "\t\t" << Utility::SyllableToString(Syllables::Orcish) << std::endl;                  // Print the syllable
+            std::cout << Syllables::Elvish_Male << "\t\t" << Utility::SyllableToString(Syllables::Elvish_Male) << std::endl;        // Print the syllable
+            std::cout << Syllables::Elvish_Female << "\t\t" << Utility::SyllableToString(Syllables::Elvish_Female) << std::endl;    // Print the syllable
+            std::cout << Syllables::Dwarvish_Male << "\t\t" << Utility::SyllableToString(Syllables::Dwarvish_Male) << std::endl;    // Print the syllable
+            std::cout << Syllables::Dwarvish_Female << "\t\t" << Utility::SyllableToString(Syllables::Dwarvish_Female) << std::endl;// Print the syllable
+            std::cout << std::endl;
             int choice;                                                                                                 // User's choice
             bool valid = false;                                                                                         // Flag to check if the choice is valid
             while (!valid) {
 
-                InputUtils::GetInt(choice, "Select a language origin: ");                                       // Ask the user for their choice
+                InputUtils::GetInt(choice, "Option > ");                                       // Ask the user for their choice
 
                 if (choice < 0 || choice > Syllables::Dwarvish_Female) {
                     std::cout << "-----> Invalid choice" << std::endl;
@@ -250,19 +216,18 @@ void CreateCharacter(std::vector<Player> *players) {
                 last_name_min = 2;
                 last_name_max = 3;
                 break;
-                
+
                 default:
                     std::cout << "Invalid choice" << std::endl;
                 break;
             }
 
-
             player.name = NameGenerator::generateName(first_name_min,first_name_max,syllables) + " " + NameGenerator::generateName(last_name_min,last_name_max,syllables);                                                                // Generate a random name
-            std::cout << "Random name generated: " << player.name << std::endl;                                          // Print the random name// Ask again....
+            std::cout<< std::endl << "Welcome to the world, " << player.name <<"!"<< std::endl<< std::endl;                                          // Print the random name// Ask again....
         }
 
         unique = true;                                                                                                  // Assume the name is unique
-        for (auto & p : *players)                                                                                // Loop through the list of players
+        for (auto const & p : *players)                                                                                // Loop through the list of players
             if (p.name == player.name) {                                                                                // Check if the name matches
                 std::cout << "Name already exists, please choose another one\n" << std::endl;
                 unique = false;                                                                                         // You know what they say when you assume -.-
@@ -295,7 +260,8 @@ void ListCharacters(std::vector<Player> *players) {
     int choice;                                                                                                         // User's choice
     bool valid = false;                                                                                                 // Flag to check if the choice is valid
     while (!valid) {                                                                                                    // Loop until the choice is valid
-        InputUtils::GetInt(choice, "Enter the number of the character you wish to view: ");                              // Ask the user for their choice
+        std::cout << std::endl;
+        InputUtils::GetInt(choice, "Idx > ");                              // Ask the user for their choice
         //std::cout << "Enter the number of the character you wish to view: ";                                            // Ask the user for their choice
         //std::cin >> choice;                                                                                             // Get the user's choice
         std::cout << std::endl;
@@ -312,5 +278,13 @@ void ViewCharacter(Player *player) {
 
     ConsoleFormat::ClearConsole();                                                                                      // Clear the console
     Utility::PrintHeader("Character Viewer : " + player->name);                                                     // Print the header
+    std::cout << std::endl << "A full information set is listed blow:" << std::endl << std::endl;
+    std::cout <<"Class: " << Utility::CharacterClassToString(player->character_class) << std::endl;
+    std::cout <<"Level: " << player->level << std::endl;
+    std::cout <<"Experience: " << player->experience << std::endl;
+    std::cout <<"Health: (" << player->health.remaining << "/" << player->health.Max() << ") " << player->health.Percent()*100 << "%" << std::endl;
+    std::cout <<"Mana: (" << player->mana.remaining << "/" << player->mana.Max() << ") " << player->mana.Percent()*100 << "%" << std::endl;
+    std::cout << std::endl;
     Utility::PrintCharacterStatSheet(player);                                                                            // Print the character's stats
+    std::cout << std::endl;
 }

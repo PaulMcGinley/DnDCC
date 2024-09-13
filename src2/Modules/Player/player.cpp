@@ -158,17 +158,18 @@ void Player::SelectClass(CharacterClass available_classes) {
             std::cout << std::endl << "... Wow. You skills are lacking so much you only qualify as a peasant..." << std::endl;
             std::cout << "Let's roll those dice again and hope for something a bit better... Noob..." << std::endl << std::endl;
         } else {
+            std::cout << ConsoleFormat::BOLD << "Option\tClass" << ConsoleFormat::RESET << std::endl;
             // Print the possible classes
             for (size_t i = 0; i < class_list.size(); ++i)
-                std::cout << i + 1 << "\t" << Utility::CharacterClassToString(class_list[i]) << std::endl;
+                std::cout << i + 1 << "\t\t" << Utility::CharacterClassToString(class_list[i]) << std::endl;
         }
 
         // Print the option to re-roll abilities
-        std::cout << "99 " << "\t" << "Re-roll Abilities" << std::endl;
+        std::cout << "99 " << "\t\t" << "Re-roll Abilities" << std::endl << std::endl;
 
         // Get user input and select the class
         int choice;
-        InputUtils::GetInt(choice, "Please select a class: ");
+        InputUtils::GetInt(choice, "Option > ");
         //std::cin >> choice;
         if (choice == 99) {
             Utility::PrintHeader("(>'-')> Re-rolling attributes <('-'<)");
