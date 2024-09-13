@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "../Modules/Player/player.h"
+#include "../Enumerators/syllables.h"
 
 namespace Utility {
     // cli out
@@ -22,6 +23,7 @@ namespace Utility {
     // funcs
     bool IsNameUnique(const std::string& name, const std::vector<std::string>& names);
     std::string CharacterClassToString(CharacterClass characterClass);
+    std::string SyllableToString(Syllables syllable);
 }
 
 #endif // UTILITY_H

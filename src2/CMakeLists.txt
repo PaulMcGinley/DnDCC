@@ -30,4 +30,5 @@ add_executable(DnDCM main.cpp
         Utilities/input.h
         Utilities/name_generator.cpp
         Utilities/name_generator.h
+        Enumerators/syllables.h
 )

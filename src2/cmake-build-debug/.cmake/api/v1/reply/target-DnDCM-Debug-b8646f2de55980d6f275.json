@@ -114,7 +114,8 @@
 				13,
 				14,
 				17,
-				19
+				19,
+				20
 			]
 		}
 	],
@@ -226,6 +227,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "Utilities/name_generator.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Enumerators/syllables.h",
 			"sourceGroupIndex" : 1
 		}
 	],

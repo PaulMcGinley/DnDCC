@@ -10,6 +10,7 @@
 #include "console_formatter.h"
 #include "../Modules/Player/player.h"
 #include "../Enumerators/chacter_class.h"
+#include "../Enumerators/syllables.h"
 
 namespace Utility {
 
@@ -158,20 +159,32 @@ namespace Utility {
 
     std::string CharacterClassToString(CharacterClass characterClass) {
         switch (characterClass) {
-            case UNDEFINED: return "UNDEFINED";
-            case Barbarian: return "Barbarian";
-            case Bard: return "Bard";
-            case Cleric: return "Cleric";
-            case Druid: return "Druid";
-            case Fighter: return "Fighter";
-            case Monk: return "Monk";
-            case Paladin: return "Paladin";
-            case Ranger: return "Ranger";
-            case Rogue: return "Rogue";
-            case Sorcerer: return "Sorcerer";
-            case Warlock: return "Warlock";
-            case Wizard: return "Wizard";
+            case CharacterClass::UNDEFINED: return "UNDEFINED";
+            case CharacterClass::Barbarian: return "Barbarian";
+            case CharacterClass::Bard: return "Bard";
+            case CharacterClass::Cleric: return "Cleric";
+            case CharacterClass::Druid: return "Druid";
+            case CharacterClass::Fighter: return "Fighter";
+            case CharacterClass::Monk: return "Monk";
+            case CharacterClass::Paladin: return "Paladin";
+            case CharacterClass::Ranger: return "Ranger";
+            case CharacterClass::Rogue: return "Rogue";
+            case CharacterClass::Sorcerer: return "Sorcerer";
+            case CharacterClass::Warlock: return "Warlock";
+            case CharacterClass::Wizard: return "Wizard";
             default: return "Unknown";
+        }
+    }
+
+    std::string SyllableToString(Syllables syllable) {
+        switch (syllable) {
+            case Syllables::Entish: return "Entish";
+            case Syllables::Gaelic: return "Gaelic";
+            case Syllables::Generic: return "Generic";
+            case Syllables::Orcish:  return "Orcish";
+            case Syllables::Trollish:  return "Trollish";
+            case Syllables::Elvish_Female:  return "Elvish (Female)";
+            case Syllables::Elvish_Male:  return "Elvish (Male)";
         }
     }
 

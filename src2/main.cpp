@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "Enumerators/syllables.h"
 #include "Utilities/utility.h"
 #include "Modules/Player/player.h"
 #include "Utilities/console_formatter.h"
@@ -14,6 +15,44 @@ void ViewCharacter(Player *player);
 void Exit();
 
 int main() {
+
+    std::cout << std::endl << ConsoleFormat::BOLD << "Trollish:" << std::endl << ConsoleFormat::RESET;
+    for (int i = 0; i < 10; i++)
+        std::cout << NameGenerator::generateName(1,2, NameGenerator::TROLLISH_SYLLABLES) + " " + NameGenerator::generateName(2,3,NameGenerator::TROLLISH_SYLLABLES) << std::endl;
+
+    std::cout << std::endl << ConsoleFormat::BOLD << "Orcish:" << std::endl << ConsoleFormat::RESET;
+    for (int i = 0; i < 10; i++)
+        std::cout << NameGenerator::generateName(1,2, NameGenerator::ORCISH_SYLLABLES) + " " + NameGenerator::generateName(2,2,NameGenerator::ORCISH_SYLLABLES) << std::endl;
+
+    std::cout << std::endl << ConsoleFormat::BOLD << "Entish:" << std::endl << ConsoleFormat::RESET;
+    for (int i = 0; i < 10; i++)
+        std::cout << NameGenerator::generateName(2,4, NameGenerator::ENTISH_SYLLABLES) + " " + NameGenerator::generateName(2,5,NameGenerator::ENTISH_SYLLABLES) << std::endl;
+
+    std::cout << std::endl << ConsoleFormat::BOLD << "Elvish (Male):" << std::endl << ConsoleFormat::RESET;
+    for (int i = 0; i < 10; i++)
+        std::cout << NameGenerator::generateName(2,3, NameGenerator::ELVISH_SYLLABLES_MALE) + " " + NameGenerator::generateName(2,4,NameGenerator::ELVISH_SYLLABLES_MALE) << std::endl;
+
+    std::cout << std::endl << ConsoleFormat::BOLD << "Elvish (Female):" << std::endl << ConsoleFormat::RESET;
+    for (int i = 0; i < 10; i++)
+        std::cout << NameGenerator::generateName(2,3, NameGenerator::ELVISH_SYLLABLES_FEMALE) + " " + NameGenerator::generateName(2,4,NameGenerator::ELVISH_SYLLABLES_FEMALE) << std::endl;
+
+    std::cout << std::endl << ConsoleFormat::BOLD << "Gaelic:" << std::endl << ConsoleFormat::RESET;
+    for (int i = 0; i < 10; i++)
+        std::cout << NameGenerator::generateName(2,4, NameGenerator::GAELIC_SYLLABLES) + " " + NameGenerator::generateName(2,5,NameGenerator::GAELIC_SYLLABLES) << std::endl;
+
+    std::cout << std::endl << ConsoleFormat::BOLD << "Generic:" << std::endl << ConsoleFormat::RESET;
+    for (int i = 0; i < 10; i++)
+        std::cout << NameGenerator::generateName(1,4) + " " + NameGenerator::generateName(1,5) << std::endl;
+
+    std::cout << std::endl << ConsoleFormat::BOLD << "Drawrvish (Male):" << std::endl << ConsoleFormat::RESET;
+    for (int i = 0; i < 10; i++)
+        std::cout << NameGenerator::generateName(2,2, NameGenerator::DWARVISH_SYLLABLES_MALE) + " " + NameGenerator::generateName(2,3,NameGenerator::DWARVISH_SYLLABLES_MALE) << std::endl;
+
+    std::cout << std::endl << ConsoleFormat::BOLD << "Drawrvish (Female):" << std::endl << ConsoleFormat::RESET;
+    for (int i = 0; i < 10; i++)
+        std::cout << NameGenerator::generateName(2,2, NameGenerator::DWARVISH_SYLLABLES_FEMALE) + " " + NameGenerator::generateName(2,3,NameGenerator::DWARVISH_SYLLABLES_FEMALE) << std::endl;
+
+
 
     // Headers
     Utility::PrintTitle();
@@ -109,7 +148,18 @@ void CreateCharacter(std::vector<Player> *players) {
         //std::cin >> player.name;                                                                                        // Get the name from the user
 
         if (player.name.empty()) {                                                                                      // Check if the name is empty
-            player.name = NameGenerator::generateName(2,8) + " " + NameGenerator::generateName(1,5);                                                                // Generate a random name
+
+            // std::cout << Syllables::Generic << " " << Utility::SyllableToString(Syllables::Generic) << std::endl;                // Print the syllable
+            // std::cout << Syllables::Entish << " " << Utility::SyllableToString(Syllables::Entish) << std::endl;                  // Print the syllable
+            // std::cout << Syllables::Gaelic << " " << Utility::SyllableToString(Syllables::Gaelic) << std::endl;                  // Print the syllable
+            // std::cout << Syllables::Trollish << " " << Utility::SyllableToString(Syllables::Trollish) << std::endl;              // Print the syllable
+            // std::cout << Syllables::Orcish << " " << Utility::SyllableToString(Syllables::Orcish) << std::endl;                  // Print the syllable
+            // std::cout << Syllables::Elvish_Female << " " << Utility::SyllableToString(Syllables::Elvish_Female) << std::endl;    // Print the syllable
+            // std::cout << Syllables::Elvish_Male << " " << Utility::SyllableToString(Syllables::Elvish_Male) << std::endl;        // Print the syllable
+
+
+
+            player.name = NameGenerator::generateName(2,4) + " " + NameGenerator::generateName(2,5);                                                                // Generate a random name
             std::cout << "Random name generated: " << player.name << std::endl;                                          // Print the random name// Ask again....
         }
 

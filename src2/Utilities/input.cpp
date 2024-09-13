@@ -5,6 +5,8 @@
 #include "input.h"
 #include <algorithm>
 
+#include "../Enumerators/syllables.h"
+
 namespace InputUtils {
 
     // Get an integer from the user
