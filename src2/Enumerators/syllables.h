@@ -14,5 +14,4 @@ enum Syllables {
     Elvish_Female   =   6,
     Dwarvish_Male   =   7,
     Dwarvish_Female =   8,
-
 };

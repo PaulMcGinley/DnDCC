@@ -6,8 +6,8 @@
 
 #include <iostream>
 
-#include "../../Utilities/console_formatter.h"
-#include "../../Utilities/input.h"
+#include "../../Utilities/Console/console_formatter.h"
+#include "../../Utilities/Input/input.h"
 #include "../../Utilities/utility.h"
 
 // Constructor
@@ -154,9 +154,14 @@ void Player::SelectClass(CharacterClass available_classes) {
 
     while (selectedClass == UNDEFINED) {
 
-        // Print the possible classes
-        for (size_t i = 0; i < class_list.size(); ++i)
-            std::cout << i + 1 << "\t" << Utility::CharacterClassToString(class_list[i]) << std::endl;
+        if (available_classes == UNDEFINED) {
+            std::cout << std::endl << "... Wow. You skills are lacking so much you only qualify as a peasant..." << std::endl;
+            std::cout << "Let's roll those dice again and hope for something a bit better... Noob..." << std::endl << std::endl;
+        } else {
+            // Print the possible classes
+            for (size_t i = 0; i < class_list.size(); ++i)
+                std::cout << i + 1 << "\t" << Utility::CharacterClassToString(class_list[i]) << std::endl;
+        }
 
         // Print the option to re-roll abilities
         std::cout << "99 " << "\t" << "Re-roll Abilities" << std::endl;

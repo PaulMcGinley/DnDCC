@@ -7,10 +7,10 @@
 #include <algorithm>
 #include <__format/format_functions.h>
 
-#include "console_formatter.h"
 #include "../Modules/Player/player.h"
 #include "../Enumerators/chacter_class.h"
 #include "../Enumerators/syllables.h"
+#include "Console/console_formatter.h"
 
 namespace Utility {
 
@@ -185,6 +185,8 @@ namespace Utility {
             case Syllables::Trollish:  return "Trollish";
             case Syllables::Elvish_Female:  return "Elvish (Female)";
             case Syllables::Elvish_Male:  return "Elvish (Male)";
+            case Syllables::Dwarvish_Male:  return "Dwarvish (Male)";
+            case Syllables::Dwarvish_Female:  return "Dwarvish (Female)";
         }
     }
 

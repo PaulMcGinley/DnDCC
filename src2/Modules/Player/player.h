@@ -10,7 +10,7 @@
 #include "../../Structures/abilities.h"
 #include "../../Enumerators/chacter_class.h"
 #include "../../Structures/energy.h"
-#include "../../Singletons/dice_roller.h"
+#include "../../Modules/Dice/dice_roller.h"
 
 class Player : public Abilities {
 public:

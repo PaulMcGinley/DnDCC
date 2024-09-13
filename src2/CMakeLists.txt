@@ -19,16 +19,16 @@ add_executable(DnDCM main.cpp
         Structures/energy.h
         Utilities/utility.h
         Utilities/utility.cpp
-        Singletons/dice_roller.cpp
-        Singletons/dice_roller.h
-        Utilities/console_formatter.h
+        Modules/Dice/dice_roller.cpp
+        Modules/Dice/dice_roller.h
+        Utilities/Console/console_formatter.h
         Modules/Loot/loot_table.cpp
         Modules/Loot/loot_table.h
         Modules/CSV_Parser/csv_parser.h
         Modules/CSV_Parser/csv_parser.cpp
-        Utilities/input.cpp
-        Utilities/input.h
-        Utilities/name_generator.cpp
-        Utilities/name_generator.h
+        Utilities/Input/input.cpp
+        Utilities/Input/input.h
+        Modules/Name_Generator/name_generator.cpp
+        Modules/Name_Generator/name_generator.h
         Enumerators/syllables.h
 )

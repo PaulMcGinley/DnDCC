@@ -28,17 +28,19 @@ std::vector<std::vector<std::string>> CSVParser::parse() {
 std::vector<std::string> CSVParser::parseLine(const std::string& line) {
 
     std::vector<std::string> result;                                                                                    // Create a vector of strings to hold the parsed fields
-    std::istringstream stream(line);                                                                                    // Create a string stream from the line
+    std::istringstream stream(line);                                                                                    // Create a string stream from the line so we can iterate through each character
     std::string field;                                                                                                  // Create a string to hold the current field
     bool inQuotes = false;                                                                                              // Create a flag to track if we are inside quotes
     std::string currentField;                                                                                           // Create a string to hold the current field
+
+    constexpr char delimiter = ',';                                                                                     // Set the delimiter to a comma
 
     // Iterate through each character in the line
     for (char ch : line) {
         if (ch == '"') {                                                                                                // Check if the character is a quote
             inQuotes = !inQuotes;                                                                                       // Toggle the inQuotes flag
             currentField += ch;                                                                                         // Add the quote to the current field
-        } else if (ch == ',' && !inQuotes) {                                                                            // Check if the character is a comma and we are not inside quotes
+        } else if (ch == delimiter && !inQuotes) {                                                                      // Check if the character is a comma and we are not inside quotes
             result.push_back(trimQuotes(currentField));                                                               // Add the current field to the result vector
             currentField.clear();                                                                                       // Clear the current field
         } else {
