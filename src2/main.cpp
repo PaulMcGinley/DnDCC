@@ -47,12 +47,13 @@ void MainMenu(std::vector<Player> *players) {
     std::cout << ConsoleFormat::BOLD << "#\t" << "Description" << ConsoleFormat::RESET << std::endl;
     std::cout                        << "1\t" << "Create a new character" << std::endl;
     std::cout                        << "2\t" << "Load an existing character" << std::endl;
-    std::cout                        << "3\t" << ConsoleFormat::BOLD << ConsoleFormat::BG_RED << ConsoleFormat::BLACK << "Exit" << ConsoleFormat::RESET << std::endl << std::endl;
+    std::cout                        << "3\t" << "Exit" << std::endl << std::endl;
 
     int choice;                                                                                                         // User's choice
     bool valid = false;                                                                                                 // Flag to check if the choice is valid
     while (!valid) {                                                                                                    // Loop until the choice is valid
         InputUtils::GetInt(choice, "Option > ");                                                             // Ask the user for their choice
+        std::cout << std::endl;
 
         // Switch on the user's choice
         // I assume this is like C# where at compile time it will be optimized to a jump table rather than a series of if-else statements
@@ -104,6 +105,7 @@ void CreateCharacter(std::vector<Player> *players) {
         Utility::PrintSubHeader("Enter the name of the character");                                              // Print the subheader
         std::cout  << "Enter a unique name or alternatively leave the field blank to use the Name Generator." << std::endl << std::endl;                       // Ask the user for the name
         InputUtils::GetString(player.name, "Name > ");                                         // Ask the user for the name
+        std::cout << std::endl;
         //std::cout << "Enter the name of the character: ";
         //std::cin >> player.name;                                                                                        // Get the name from the user
 
