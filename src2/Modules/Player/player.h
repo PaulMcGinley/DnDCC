@@ -18,6 +18,7 @@ public:
     std::string name;
     int level = 1;
     int experience = 0;
+    int gold = 0;
 
     CharacterClass character_class = UNDEFINED;
     Energy health;

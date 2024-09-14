@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "Database/player_database.h"
 #include "Enumerators/syllables.h"
 #include "Utilities/utility.h"
 #include "Modules/Player/player.h"
@@ -7,37 +8,39 @@
 #include "Utilities/Input/input.h"
 #include "Modules/Name_Generator/name_generator.h"
 
-bool MainLoop(std::vector<Player> *players);
-void MainMenu(std::vector<Player> *players);
-void CreateCharacter(std::vector<Player> *players);
-void ListCharacters(std::vector<Player> *players);
+bool MainLoop();
+void MainMenu();
+void CreateCharacter();
+void ListCharacters();
 void ViewCharacter(Player *player);
 void Exit();
 
 int main() {
 
+    PlayerDatabase::LoadDB();
+
     // Headers
     //Utility::PrintTitle();
     ConsoleFormat::PrintRightAligned("v.01 By Paul F. McGinley (2024)");
 
-    std::vector<Player> players;
+    //std::vector<Player> players;
     // Loot tables
     // Encounter tables
 
     bool running = true;
     while (running) {
-        running = MainLoop(&players);
+        running = MainLoop();
     }
 
     return 0;
 }
 
-bool MainLoop(std::vector<Player> *players) {
-    MainMenu(players);
+bool MainLoop() {
+    MainMenu();
     return true;
 }
 
-void MainMenu(std::vector<Player> *players) {
+void MainMenu() {
 
     ConsoleFormat::ClearConsole();                                                                                      // Clear the console
     Utility::PrintHeader("Main Menu");                                                                         // Print the header
@@ -62,14 +65,14 @@ void MainMenu(std::vector<Player> *players) {
             // Create a new character
             case 1: {
                 valid = true;
-                CreateCharacter(players);
+                CreateCharacter();
                 break;
             }
 
             // List existing characters
             case 2: {
                 valid = true;
-                ListCharacters(players);
+                ListCharacters();
                 break;
             }
 
@@ -88,7 +91,7 @@ void MainMenu(std::vector<Player> *players) {
     }
 }
 
-void CreateCharacter(std::vector<Player> *players) {
+void CreateCharacter() {
     ConsoleFormat::ClearConsole();                                                                                      // Clear the console
     Utility::PrintHeader("Character Creator");                                                                 // Print the header
 
@@ -229,7 +232,7 @@ void CreateCharacter(std::vector<Player> *players) {
         }
 
         unique = true;                                                                                                  // Assume the name is unique
-        for (auto const & p : *players)                                                                                // Loop through the list of players
+        for (auto const & p : PlayerDatabase::players)                                                                                // Loop through the list of players
             if (p.name == player.name) {                                                                                // Check if the name matches
                 std::cout << "Name already exists, please choose another one\n" << std::endl;
                 unique = false;                                                                                         // You know what they say when you assume -.-
@@ -238,15 +241,15 @@ void CreateCharacter(std::vector<Player> *players) {
     }
 
     // The name is unique, so we can continue
-    players->push_back(player);                                                                                         // Add the character to the list of players
+    PlayerDatabase::AddPlayer(player);                                                                                  // Add the character to the list of players
 }
 
-void ListCharacters(std::vector<Player> *players) {
+void ListCharacters() {
     ConsoleFormat::ClearConsole();                                                                                      // Clear the console
     Utility::PrintHeader("Character List");                                                                    // Print the header
 
     // Guard clause - Skip the rest if there are no players
-    if (players->empty()) {
+    if (PlayerDatabase::players.empty()) {
         std::cout << std::endl << "No characters found" << std::endl << std::endl;
         return;
     }
@@ -256,8 +259,8 @@ void ListCharacters(std::vector<Player> *players) {
 
     Utility::PrintPlayerListHeader();                                                                                   // Print the header for the list of players
 
-    for (int i = 0; i < players->size(); i++)
-        Utility::PrintPlayerListRow(i, &players->at(i));
+    for (int i = 0; i < PlayerDatabase::players.size(); i++)
+        Utility::PrintPlayerListRow(i, &PlayerDatabase::players.at(i));
 
     int choice;                                                                                                         // User's choice
     bool valid = false;                                                                                                 // Flag to check if the choice is valid
@@ -267,9 +270,9 @@ void ListCharacters(std::vector<Player> *players) {
         //std::cout << "Enter the number of the character you wish to view: ";                                            // Ask the user for their choice
         //std::cin >> choice;                                                                                             // Get the user's choice
         std::cout << std::endl;
-        if (choice >= 0 && choice < players->size()) {                                                                   // Check if the choice is valid
+        if (choice >= 0 && choice < PlayerDatabase::players.size()) {                                                                   // Check if the choice is valid
             valid = true;                                                                                               // Set the flag to true
-            ViewCharacter(&players->at(choice));                                                                         // View the character
+            ViewCharacter(&PlayerDatabase::players.at(choice));                                                                         // View the character
         } else {
             std::cout << "-----> Invalid choice" << std::endl;                                                           // Print an error message
         }

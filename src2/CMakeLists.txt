@@ -31,4 +31,7 @@ add_executable(DnDCM main.cpp
         Modules/Name_Generator/name_generator.cpp
         Modules/Name_Generator/name_generator.h
         Enumerators/syllables.h
+        Structures/Databases/PlayerEntry.h
+        Database/player_database.cpp
+        Database/player_database.h
 )

@@ -16,8 +16,14 @@ std::vector<std::vector<std::string>> CSVParser::parse() {
     std::ifstream file(filename);                                                                                       // Open the file
     std::string line;                                                                                                   // Create a string to hold each line of the file
 
+    bool header = true;
     // Read each line of the file
     while (std::getline(file, line)) {
+        // Skip the header
+        if (header) {
+            header = false;
+            continue;
+        }
         data.push_back(parseLine(line));                                                                              // Parse the line and add it to the data vector
     }
 

@@ -97,6 +97,12 @@ build CMakeFiles/DnDCM.dir/Modules/Name_Generator/name_generator.cpp.o: CXX_COMP
   OBJECT_DIR = CMakeFiles/DnDCM.dir
   OBJECT_FILE_DIR = CMakeFiles/DnDCM.dir/Modules/Name_Generator
 
+build CMakeFiles/DnDCM.dir/Database/player_database.cpp.o: CXX_COMPILER__DnDCM_unscanned_Debug /Users/paul/Documents/GitHub/DnDCC/src2/Database/player_database.cpp || cmake_object_order_depends_target_DnDCM
+  DEP_FILE = CMakeFiles/DnDCM.dir/Database/player_database.cpp.o.d
+  FLAGS = -g -std=c++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/DnDCM.dir
+  OBJECT_FILE_DIR = CMakeFiles/DnDCM.dir/Database
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target DnDCM
@@ -105,7 +111,7 @@ build CMakeFiles/DnDCM.dir/Modules/Name_Generator/name_generator.cpp.o: CXX_COMP
 #############################################
 # Link the executable DnDCM
 
-build DnDCM: CXX_EXECUTABLE_LINKER__DnDCM_Debug CMakeFiles/DnDCM.dir/main.cpp.o CMakeFiles/DnDCM.dir/Modules/Player/player.cpp.o CMakeFiles/DnDCM.dir/Utilities/utility.cpp.o CMakeFiles/DnDCM.dir/Modules/Dice/dice_roller.cpp.o CMakeFiles/DnDCM.dir/Modules/Loot/loot_table.cpp.o CMakeFiles/DnDCM.dir/Modules/CSV_Parser/csv_parser.cpp.o CMakeFiles/DnDCM.dir/Utilities/Input/input.cpp.o CMakeFiles/DnDCM.dir/Modules/Name_Generator/name_generator.cpp.o
+build DnDCM: CXX_EXECUTABLE_LINKER__DnDCM_Debug CMakeFiles/DnDCM.dir/main.cpp.o CMakeFiles/DnDCM.dir/Modules/Player/player.cpp.o CMakeFiles/DnDCM.dir/Utilities/utility.cpp.o CMakeFiles/DnDCM.dir/Modules/Dice/dice_roller.cpp.o CMakeFiles/DnDCM.dir/Modules/Loot/loot_table.cpp.o CMakeFiles/DnDCM.dir/Modules/CSV_Parser/csv_parser.cpp.o CMakeFiles/DnDCM.dir/Utilities/Input/input.cpp.o CMakeFiles/DnDCM.dir/Modules/Name_Generator/name_generator.cpp.o CMakeFiles/DnDCM.dir/Database/player_database.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
   OBJECT_DIR = CMakeFiles/DnDCM.dir
   POST_BUILD = :

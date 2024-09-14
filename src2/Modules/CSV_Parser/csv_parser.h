@@ -15,8 +15,8 @@ public:
 
 private:
     std::string filename;
-    std::vector<std::string> parseLine(const std::string& line);
-    std::string trimQuotes(const std::string& field);
+    static std::vector<std::string> parseLine(const std::string& line);
+    static std::string trimQuotes(const std::string& field);
 };
 
 #endif // CSV_PARSER_H
