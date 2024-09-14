@@ -84,7 +84,7 @@ struct Stat {
         5. Clobbered Registers: The "w0", "w1", "w2" specifies that the w0, w1, and w2 registers are modified by the assembly code.
      */
 
-    // Long story short, the inline assembly code is not worth it.
+    // Long story short, the inline assembly code is not worth it in this use case.
     // I have previously used inline assembly in a project to open a custom file type (reverse engineering).
     // It was a team effort and I didn't fully grasp the concept.
     // I get it a bit more now.
